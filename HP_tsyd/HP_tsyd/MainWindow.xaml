@@ -1,0 +1,45 @@
+﻿<Window x:Class="HP_tsyd.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HP_tsyd"
+        mc:Ignorable="d"
+        Title="Здоровье +" Height="450" Width="800"
+        Background="ForestGreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Height="100" Width="100" Source="C:\Users\D2\Desktop\учеба\практика\Logo.png"/>
+        <Label Grid.Column="1" Content="Медицинская клиника Здоровье+" HorizontalAlignment="Center" FontSize="21" VerticalAlignment="Center" />
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="1" Content="Авторизация" HorizontalAlignment="Center" FontSize="21" VerticalAlignment="Center"/>
+            <Label Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" >Введите логин</Label>
+            <TextBox x:Name="login" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Grid.Row="2" Grid.Column="1" />
+            <Label Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" >Введите пароль</Label>
+            <TextBox x:Name="password" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Grid.Row="4" Grid.Column="1" />
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" Width="100" Click="Enter_Click" Grid.Column="1">Вход</Button>
+        </Grid>
+    </Grid>
+</Window>

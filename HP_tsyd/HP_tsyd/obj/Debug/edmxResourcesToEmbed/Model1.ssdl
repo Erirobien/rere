@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище HPDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Appel">
+    <Key>
+      <PropertyRef Name="idAppel" />
+    </Key>
+    <Property Name="idAppel" Type="int" Nullable="false" />
+    <Property Name="complaint" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="omsPatient" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ListAnalysisAndProcedure">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="price" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ListPositions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ListTimeTableForWorker">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="idWorker" Type="int" Nullable="false" />
+    <Property Name="idTimeTable" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="oms" />
+    </Key>
+    <Property Name="oms" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="fio" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="seriesAndNumberPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="phone" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reception">
+    <Key>
+      <PropertyRef Name="idReception" />
+    </Key>
+    <Property Name="idReception" Type="int" Nullable="false" />
+    <Property Name="noteOfInspection" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="date" Type="date" Nullable="false" />
+    <Property Name="time" Type="time" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TimeTable">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="date" Type="date" Nullable="false" />
+    <Property Name="time" Type="time" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Treatment">
+    <Key>
+      <PropertyRef Name="idTreatment" />
+    </Key>
+    <Property Name="idTreatment" Type="int" Nullable="false" />
+    <Property Name="dateStart" Type="date" Nullable="false" />
+    <Property Name="idReception" Type="int" Nullable="false" />
+    <Property Name="idAnalysis" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Worker">
+    <Key>
+      <PropertyRef Name="idWorker" />
+    </Key>
+    <Property Name="idWorker" Type="int" Nullable="false" />
+    <Property Name="fio" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="idPosition" Type="int" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="idAppel" Type="int" Nullable="false" />
+    <Property Name="idReception" Type="int" Nullable="false" />
+    <Property Name="idTimeTable" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Appel_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="Appel" Type="Self.Appel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="oms" />
+      </Principal>
+      <Dependent Role="Appel">
+        <PropertyRef Name="omsPatient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListTimeTableForWorker_TimeTable">
+    <End Role="TimeTable" Type="Self.TimeTable" Multiplicity="1" />
+    <End Role="ListTimeTableForWorker" Type="Self.ListTimeTableForWorker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimeTable">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ListTimeTableForWorker">
+        <PropertyRef Name="idTimeTable" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListTimeTableForWorker_Worker">
+    <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
+    <End Role="ListTimeTableForWorker" Type="Self.ListTimeTableForWorker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Worker">
+        <PropertyRef Name="idWorker" />
+      </Principal>
+      <Dependent Role="ListTimeTableForWorker">
+        <PropertyRef Name="idWorker" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Treatment_ListAnalysisAndProcedure">
+    <End Role="ListAnalysisAndProcedure" Type="Self.ListAnalysisAndProcedure" Multiplicity="1" />
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListAnalysisAndProcedure">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="idAnalysis" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Treatment_Reception">
+    <End Role="Reception" Type="Self.Reception" Multiplicity="1" />
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reception">
+        <PropertyRef Name="idReception" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="idReception" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Worker_Appel">
+    <End Role="Appel" Type="Self.Appel" Multiplicity="1" />
+    <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appel">
+        <PropertyRef Name="idAppel" />
+      </Principal>
+      <Dependent Role="Worker">
+        <PropertyRef Name="idAppel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Worker_ListPositions">
+    <End Role="ListPositions" Type="Self.ListPositions" Multiplicity="1" />
+    <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListPositions">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Worker">
+        <PropertyRef Name="idPosition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Worker_Reception1">
+    <End Role="Reception" Type="Self.Reception" Multiplicity="1" />
+    <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reception">
+        <PropertyRef Name="idReception" />
+      </Principal>
+      <Dependent Role="Worker">
+        <PropertyRef Name="idReception" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище HPDBModelContainer">
+    <EntitySet Name="Appel" EntityType="Self.Appel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListAnalysisAndProcedure" EntityType="Self.ListAnalysisAndProcedure" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListPositions" EntityType="Self.ListPositions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListTimeTableForWorker" EntityType="Self.ListTimeTableForWorker" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reception" EntityType="Self.Reception" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TimeTable" EntityType="Self.TimeTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Treatment" EntityType="Self.Treatment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Appel_Patient" Association="Self.FK_Appel_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="Appel" EntitySet="Appel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListTimeTableForWorker_TimeTable" Association="Self.FK_ListTimeTableForWorker_TimeTable">
+      <End Role="TimeTable" EntitySet="TimeTable" />
+      <End Role="ListTimeTableForWorker" EntitySet="ListTimeTableForWorker" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListTimeTableForWorker_Worker" Association="Self.FK_ListTimeTableForWorker_Worker">
+      <End Role="Worker" EntitySet="Worker" />
+      <End Role="ListTimeTableForWorker" EntitySet="ListTimeTableForWorker" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Treatment_ListAnalysisAndProcedure" Association="Self.FK_Treatment_ListAnalysisAndProcedure">
+      <End Role="ListAnalysisAndProcedure" EntitySet="ListAnalysisAndProcedure" />
+      <End Role="Treatment" EntitySet="Treatment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Treatment_Reception" Association="Self.FK_Treatment_Reception">
+      <End Role="Reception" EntitySet="Reception" />
+      <End Role="Treatment" EntitySet="Treatment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Worker_Appel" Association="Self.FK_Worker_Appel">
+      <End Role="Appel" EntitySet="Appel" />
+      <End Role="Worker" EntitySet="Worker" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Worker_ListPositions" Association="Self.FK_Worker_ListPositions">
+      <End Role="ListPositions" EntitySet="ListPositions" />
+      <End Role="Worker" EntitySet="Worker" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Worker_Reception1" Association="Self.FK_Worker_Reception1">
+      <End Role="Reception" EntitySet="Reception" />
+      <End Role="Worker" EntitySet="Worker" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

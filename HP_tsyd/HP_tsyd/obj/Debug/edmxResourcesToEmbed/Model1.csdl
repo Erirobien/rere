@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HPDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Appel">
+    <Key>
+      <PropertyRef Name="idAppel" />
+    </Key>
+    <Property Name="idAppel" Type="Int32" Nullable="false" />
+    <Property Name="complaint" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="omsPatient" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK_Appel_Patient" FromRole="Appel" ToRole="Patient" />
+    <NavigationProperty Name="Worker" Relationship="Self.FK_Worker_Appel" FromRole="Appel" ToRole="Worker" />
+  </EntityType>
+  <EntityType Name="ListAnalysisAndProcedure">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Treatment" Relationship="Self.FK_Treatment_ListAnalysisAndProcedure" FromRole="ListAnalysisAndProcedure" ToRole="Treatment" />
+  </EntityType>
+  <EntityType Name="ListPositions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Worker" Relationship="Self.FK_Worker_ListPositions" FromRole="ListPositions" ToRole="Worker" />
+  </EntityType>
+  <EntityType Name="ListTimeTableForWorker">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="idWorker" Type="Int32" Nullable="false" />
+    <Property Name="idTimeTable" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TimeTable" Relationship="Self.FK_ListTimeTableForWorker_TimeTable" FromRole="ListTimeTableForWorker" ToRole="TimeTable" />
+    <NavigationProperty Name="Worker" Relationship="Self.FK_ListTimeTableForWorker_Worker" FromRole="ListTimeTableForWorker" ToRole="Worker" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="oms" />
+    </Key>
+    <Property Name="oms" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="fio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="seriesAndNumberPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="phone" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <NavigationProperty Name="Appel" Relationship="Self.FK_Appel_Patient" FromRole="Patient" ToRole="Appel" />
+  </EntityType>
+  <EntityType Name="Reception">
+    <Key>
+      <PropertyRef Name="idReception" />
+    </Key>
+    <Property Name="idReception" Type="Int32" Nullable="false" />
+    <Property Name="noteOfInspection" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+    <NavigationProperty Name="Treatment" Relationship="Self.FK_Treatment_Reception" FromRole="Reception" ToRole="Treatment" />
+    <NavigationProperty Name="Worker" Relationship="Self.FK_Worker_Reception1" FromRole="Reception" ToRole="Worker" />
+  </EntityType>
+  <EntityType Name="TimeTable">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+    <NavigationProperty Name="ListTimeTableForWorker" Relationship="Self.FK_ListTimeTableForWorker_TimeTable" FromRole="TimeTable" ToRole="ListTimeTableForWorker" />
+  </EntityType>
+  <EntityType Name="Treatment">
+    <Key>
+      <PropertyRef Name="idTreatment" />
+    </Key>
+    <Property Name="idTreatment" Type="Int32" Nullable="false" />
+    <Property Name="dateStart" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="idReception" Type="Int32" Nullable="false" />
+    <Property Name="idAnalysis" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ListAnalysisAndProcedure" Relationship="Self.FK_Treatment_ListAnalysisAndProcedure" FromRole="Treatment" ToRole="ListAnalysisAndProcedure" />
+    <NavigationProperty Name="Reception" Relationship="Self.FK_Treatment_Reception" FromRole="Treatment" ToRole="Reception" />
+  </EntityType>
+  <EntityType Name="Worker">
+    <Key>
+      <PropertyRef Name="idWorker" />
+    </Key>
+    <Property Name="idWorker" Type="Int32" Nullable="false" />
+    <Property Name="fio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="idPosition" Type="Int32" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="idAppel" Type="Int32" Nullable="false" />
+    <Property Name="idReception" Type="Int32" Nullable="false" />
+    <Property Name="idTimeTable" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Appel" Relationship="Self.FK_Worker_Appel" FromRole="Worker" ToRole="Appel" />
+    <NavigationProperty Name="ListPositions" Relationship="Self.FK_Worker_ListPositions" FromRole="Worker" ToRole="ListPositions" />
+    <NavigationProperty Name="ListTimeTableForWorker" Relationship="Self.FK_ListTimeTableForWorker_Worker" FromRole="Worker" ToRole="ListTimeTableForWorker" />
+    <NavigationProperty Name="Reception" Relationship="Self.FK_Worker_Reception1" FromRole="Worker" ToRole="Reception" />
+  </EntityType>
+  <Association Name="FK_Appel_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="Appel" Type="Self.Appel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="oms" />
+      </Principal>
+      <Dependent Role="Appel">
+        <PropertyRef Name="omsPatient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Worker_Appel">
+    <End Role="Appel" Type="Self.Appel" Multiplicity="1" />
+    <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appel">
+        <PropertyRef Name="idAppel" />
+      </Principal>
+      <Dependent Role="Worker">
+        <PropertyRef Name="idAppel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Treatment_ListAnalysisAndProcedure">
+    <End Role="ListAnalysisAndProcedure" Type="Self.ListAnalysisAndProcedure" Multiplicity="1" />
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListAnalysisAndProcedure">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="idAnalysis" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Worker_ListPositions">
+    <End Role="ListPositions" Type="Self.ListPositions" Multiplicity="1" />
+    <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListPositions">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Worker">
+        <PropertyRef Name="idPosition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListTimeTableForWorker_TimeTable">
+    <End Role="TimeTable" Type="Self.TimeTable" Multiplicity="1" />
+    <End Role="ListTimeTableForWorker" Type="Self.ListTimeTableForWorker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimeTable">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ListTimeTableForWorker">
+        <PropertyRef Name="idTimeTable" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListTimeTableForWorker_Worker">
+    <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
+    <End Role="ListTimeTableForWorker" Type="Self.ListTimeTableForWorker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Worker">
+        <PropertyRef Name="idWorker" />
+      </Principal>
+      <Dependent Role="ListTimeTableForWorker">
+        <PropertyRef Name="idWorker" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Treatment_Reception">
+    <End Role="Reception" Type="Self.Reception" Multiplicity="1" />
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reception">
+        <PropertyRef Name="idReception" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="idReception" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Worker_Reception1">
+    <End Role="Reception" Type="Self.Reception" Multiplicity="1" />
+    <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reception">
+        <PropertyRef Name="idReception" />
+      </Principal>
+      <Dependent Role="Worker">
+        <PropertyRef Name="idReception" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HPDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Appel" EntityType="Self.Appel" />
+    <EntitySet Name="ListAnalysisAndProcedure" EntityType="Self.ListAnalysisAndProcedure" />
+    <EntitySet Name="ListPositions" EntityType="Self.ListPositions" />
+    <EntitySet Name="ListTimeTableForWorker" EntityType="Self.ListTimeTableForWorker" />
+    <EntitySet Name="Patient" EntityType="Self.Patient" />
+    <EntitySet Name="Reception" EntityType="Self.Reception" />
+    <EntitySet Name="TimeTable" EntityType="Self.TimeTable" />
+    <EntitySet Name="Treatment" EntityType="Self.Treatment" />
+    <EntitySet Name="Worker" EntityType="Self.Worker" />
+    <AssociationSet Name="FK_Appel_Patient" Association="Self.FK_Appel_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="Appel" EntitySet="Appel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Worker_Appel" Association="Self.FK_Worker_Appel">
+      <End Role="Appel" EntitySet="Appel" />
+      <End Role="Worker" EntitySet="Worker" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Treatment_ListAnalysisAndProcedure" Association="Self.FK_Treatment_ListAnalysisAndProcedure">
+      <End Role="ListAnalysisAndProcedure" EntitySet="ListAnalysisAndProcedure" />
+      <End Role="Treatment" EntitySet="Treatment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Worker_ListPositions" Association="Self.FK_Worker_ListPositions">
+      <End Role="ListPositions" EntitySet="ListPositions" />
+      <End Role="Worker" EntitySet="Worker" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListTimeTableForWorker_TimeTable" Association="Self.FK_ListTimeTableForWorker_TimeTable">
+      <End Role="TimeTable" EntitySet="TimeTable" />
+      <End Role="ListTimeTableForWorker" EntitySet="ListTimeTableForWorker" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListTimeTableForWorker_Worker" Association="Self.FK_ListTimeTableForWorker_Worker">
+      <End Role="Worker" EntitySet="Worker" />
+      <End Role="ListTimeTableForWorker" EntitySet="ListTimeTableForWorker" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Treatment_Reception" Association="Self.FK_Treatment_Reception">
+      <End Role="Reception" EntitySet="Reception" />
+      <End Role="Treatment" EntitySet="Treatment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Worker_Reception1" Association="Self.FK_Worker_Reception1">
+      <End Role="Reception" EntitySet="Reception" />
+      <End Role="Worker" EntitySet="Worker" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

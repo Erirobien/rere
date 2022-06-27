@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище HPDBModelContainer" CdmEntityContainer="HPDBEntities">
+    <EntitySetMapping Name="Appel">
+      <EntityTypeMapping TypeName="HPDBModel.Appel">
+        <MappingFragment StoreEntitySet="Appel">
+          <ScalarProperty Name="idAppel" ColumnName="idAppel" />
+          <ScalarProperty Name="complaint" ColumnName="complaint" />
+          <ScalarProperty Name="omsPatient" ColumnName="omsPatient" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListAnalysisAndProcedure">
+      <EntityTypeMapping TypeName="HPDBModel.ListAnalysisAndProcedure">
+        <MappingFragment StoreEntitySet="ListAnalysisAndProcedure">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListPositions">
+      <EntityTypeMapping TypeName="HPDBModel.ListPositions">
+        <MappingFragment StoreEntitySet="ListPositions">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListTimeTableForWorker">
+      <EntityTypeMapping TypeName="HPDBModel.ListTimeTableForWorker">
+        <MappingFragment StoreEntitySet="ListTimeTableForWorker">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="idWorker" ColumnName="idWorker" />
+          <ScalarProperty Name="idTimeTable" ColumnName="idTimeTable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Patient">
+      <EntityTypeMapping TypeName="HPDBModel.Patient">
+        <MappingFragment StoreEntitySet="Patient">
+          <ScalarProperty Name="oms" ColumnName="oms" />
+          <ScalarProperty Name="fio" ColumnName="fio" />
+          <ScalarProperty Name="seriesAndNumberPassword" ColumnName="seriesAndNumberPassword" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reception">
+      <EntityTypeMapping TypeName="HPDBModel.Reception">
+        <MappingFragment StoreEntitySet="Reception">
+          <ScalarProperty Name="idReception" ColumnName="idReception" />
+          <ScalarProperty Name="noteOfInspection" ColumnName="noteOfInspection" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="time" ColumnName="time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeTable">
+      <EntityTypeMapping TypeName="HPDBModel.TimeTable">
+        <MappingFragment StoreEntitySet="TimeTable">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="time" ColumnName="time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Treatment">
+      <EntityTypeMapping TypeName="HPDBModel.Treatment">
+        <MappingFragment StoreEntitySet="Treatment">
+          <ScalarProperty Name="idTreatment" ColumnName="idTreatment" />
+          <ScalarProperty Name="dateStart" ColumnName="dateStart" />
+          <ScalarProperty Name="idReception" ColumnName="idReception" />
+          <ScalarProperty Name="idAnalysis" ColumnName="idAnalysis" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Worker">
+      <EntityTypeMapping TypeName="HPDBModel.Worker">
+        <MappingFragment StoreEntitySet="Worker">
+          <ScalarProperty Name="idWorker" ColumnName="idWorker" />
+          <ScalarProperty Name="fio" ColumnName="fio" />
+          <ScalarProperty Name="idPosition" ColumnName="idPosition" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="idAppel" ColumnName="idAppel" />
+          <ScalarProperty Name="idReception" ColumnName="idReception" />
+          <ScalarProperty Name="idTimeTable" ColumnName="idTimeTable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
